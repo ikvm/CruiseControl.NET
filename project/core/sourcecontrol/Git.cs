@@ -439,7 +439,10 @@ namespace ThoughtWorks.CruiseControl.Core.Sourcecontrol
 
                 // init submodules
                 if (FetchSubmodules)
+                {
                     GitInitSubmodules(result);
+                    GitUpdateSubmodules(result);
+                }
 
                 // setup some required configuration settings for the local repository
                 SetupLocalRepository(result);
@@ -813,6 +816,8 @@ namespace ThoughtWorks.CruiseControl.Core.Sourcecontrol
             ProcessArgumentBuilder buffer = new ProcessArgumentBuilder();
             buffer.AddArgument("submodule");
             buffer.AddArgument("update");
+            buffer.AddArgument("--init");
+            buffer.AddArgument("--recursive");
 
             // initialize progress information
             var bpi = GetBuildProgressInformation(result);
